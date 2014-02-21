@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventLink.Test.Javascript",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.Javascript", "Partners\SharedObjects\Utilities.Javascript\Utilities.Javascript.csproj", "{52C4B9D1-8AD4-4082-9459-2C59060E39E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WOWPage", "Examples\WOWPage\WOWPage.csproj", "{4752D0F8-3223-47EE-B055-A76AE105D7D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -423,6 +425,24 @@ Global
 		{52C4B9D1-8AD4-4082-9459-2C59060E39E7}.Release|Plain.Build.0 = Release|Plain
 		{52C4B9D1-8AD4-4082-9459-2C59060E39E7}.Release|Traced.ActiveCfg = Release|Traced
 		{52C4B9D1-8AD4-4082-9459-2C59060E39E7}.Release|Traced.Build.0 = Release|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Any CPU.ActiveCfg = Debug|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Collecting.ActiveCfg = Debug|Collecting
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Collecting.Build.0 = Debug|Collecting
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Mixed Platforms.ActiveCfg = Debug|Collecting
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Mixed Platforms.Build.0 = Debug|Collecting
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Plain.ActiveCfg = Debug|Plain
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Plain.Build.0 = Debug|Plain
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Traced.ActiveCfg = Debug|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Debug|Traced.Build.0 = Debug|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Any CPU.ActiveCfg = Release|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Collecting.ActiveCfg = Release|Collecting
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Collecting.Build.0 = Release|Collecting
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Mixed Platforms.ActiveCfg = Release|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Mixed Platforms.Build.0 = Release|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Plain.ActiveCfg = Release|Plain
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Plain.Build.0 = Release|Plain
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Traced.ActiveCfg = Release|Traced
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6}.Release|Traced.Build.0 = Release|Traced
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -433,6 +453,7 @@ Global
 		{E5A01A6A-5544-4966-8D5A-7D02A0D019E0} = {E042DAD1-A34D-4F6A-860C-D95C09DC5D5A}
 		{E2DA2B4F-960D-4EC3-AECF-FE44B1566B2E} = {E042DAD1-A34D-4F6A-860C-D95C09DC5D5A}
 		{E1292154-48E4-4192-9F2E-15A27B77E038} = {E042DAD1-A34D-4F6A-860C-D95C09DC5D5A}
+		{4752D0F8-3223-47EE-B055-A76AE105D7D6} = {E042DAD1-A34D-4F6A-860C-D95C09DC5D5A}
 		{E4E4BC24-B0E5-4BEA-9DE5-4D56784C2F67} = {E1292154-48E4-4192-9F2E-15A27B77E038}
 		{92187333-7A0F-4F7F-9694-97502E3A6C99} = {E1292154-48E4-4192-9F2E-15A27B77E038}
 		{0C25D915-B450-415F-A6D1-F87078EE5B0B} = {E1292154-48E4-4192-9F2E-15A27B77E038}
