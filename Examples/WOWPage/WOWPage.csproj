@@ -153,9 +153,9 @@
     <Content Include="jquery-1.4.2.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="KeystoneLoginBackground01.png">
+    <Content Include="KeystoneLoginBackground01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <None Include="main.html" />
   </ItemGroup>
   <ItemGroup />
