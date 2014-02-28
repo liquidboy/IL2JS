@@ -10,19 +10,5 @@ namespace WOWPage
 {
 
 
-    //[Import]
-    //public class EaselJS1
-    //{
-    //    extern public EaselJS Stage(DomNode canvas);
-    //    extern public EaselJS Shape();
-    //}
-
-
-    //[Import]
-    //public static class EaselJSHelpers1
-    //{
-    //    extern public static EaselJS JQuery(this string expr);
-    //    extern public static EaselJS JQuery(this DomNode node);
-    //}
 
 }
