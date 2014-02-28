@@ -184,18 +184,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="IL2JS_Html">
-      <HintPath>..\..\bin\IL2JS_Html.dll</HintPath>
-    </Reference>
-    <Reference Include="IL2JS_JSTypes_silverlight">
-      <HintPath>..\..\bin\IL2JS_JSTypes_silverlight.dll</HintPath>
-    </Reference>
-    <Reference Include="IL2JS_SilverlightInterop">
-      <HintPath>..\..\bin\IL2JS_SilverlightInterop.dll</HintPath>
-    </Reference>
-    <Reference Include="IL2JS_Xml">
-      <HintPath>..\..\bin\IL2JS_Xml.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Windows" />
@@ -335,6 +323,24 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Html\IL2JS_Html.csproj">
+      <Project>{8e912806-310e-47f2-8538-2833165f9da7}</Project>
+      <Name>IL2JS_Html</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\JSTypes\IL2JS_JSTypes_silverlight.csproj">
+      <Project>{a831b585-1833-4eed-bd51-335d39af87cc}</Project>
+      <Name>IL2JS_JSTypes_silverlight</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SilverlightInterop\IL2JS_SilverlightInterop.csproj">
+      <Project>{7685b8c6-19cf-411b-aff4-a8699d0eca3a}</Project>
+      <Name>IL2JS_SilverlightInterop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Xml\IL2JS_Xml.csproj">
+      <Project>{ca489b70-0754-43f0-a728-92910b4117dc}</Project>
+      <Name>IL2JS_Xml</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <Import Project="$(IL2JSROOT)\MSBuild\Microsoft.LiveLabs.JavaScript.IL2JS.targets" />

@@ -105,6 +105,7 @@
     <Compile Include="Microsoft\LiveLabs\Html\Code.cs" />
     <Compile Include="Microsoft\LiveLabs\Html\Col.cs" />
     <Compile Include="Microsoft\LiveLabs\Html\Colgroup.cs" />
+    <Compile Include="Microsoft\LiveLabs\Html\Canvas.cs" />
     <Compile Include="Microsoft\LiveLabs\Html\Delegates.cs" />
     <Compile Include="Microsoft\LiveLabs\Html\NoScript.cs" />
     <Compile Include="Microsoft\LiveLabs\Html\CurrentStyle.cs" />
