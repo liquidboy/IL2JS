@@ -31,6 +31,12 @@ namespace WOWPage
 
         [Import(@"function(text, font, color){ return new this.createjs.Text(text, font, color) ; }")]
         extern public Text Text(string text, string font, string color);
+
+        [Import(@"function(){ return new this.createjs.Container() ; }")]
+        extern public Container Container();
+
+        [Import("createjs.Ticker")]
+        extern public Ticker Ticker{get;}
     }
 
     [Import]
@@ -43,7 +49,10 @@ namespace WOWPage
         extern public void addChild(Rectangle item);
         extern public void addChild(Shape item);
         extern public void addChild(Text item);
+        extern public void addChild(Container item);
         extern public void update();
+        extern public void clear();
+
 
 
     }
@@ -58,8 +67,9 @@ namespace WOWPage
         extern public void beginStroke(string color);
         extern public void beginFill(string color);
         extern public void drawCircle(int x, int y, int radius);
+        extern public void drawRoundRect(int x, int y, int width, int height, int radius);
         extern public string getRGB(int r, int g, int b);
-
+        extern public void clear();
     }
 
     [Import]
@@ -80,7 +90,21 @@ namespace WOWPage
         extern public int x { get; set; }
         extern public int y { get; set; }
 
+        extern public void addEventListener(string eventName, EventListenerCallback function);
 
+
+    }
+
+    [Import]
+    public class Container
+    {
+        [Import(Creation = Creation.Object)]
+        extern public Container();
+
+        extern public void addChild(Bitmap item);
+        extern public void addChild(Rectangle item);
+        extern public void addChild(Shape item);
+        extern public void addChild(Text item);
     }
 
 
@@ -98,5 +122,16 @@ namespace WOWPage
         extern public Rectangle();
     }
 
+    [Import]
+    public class Ticker
+    {
+        [Import(Creation = Creation.Object)]
+        extern public Ticker();
 
+        extern public void addEventListener(string eventName, EventListenerCallback function);
+
+    }
+
+    [Export(PassInstanceAsArgument = true)]
+    public delegate void EventListenerCallback(DomNode node);
 }
