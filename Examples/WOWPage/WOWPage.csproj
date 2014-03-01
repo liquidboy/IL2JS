@@ -127,7 +127,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CreateJS.cs" />
+    <Compile Include="EaselJS.cs" />
     <Compile Include="OpenJS\BrowserUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WOWPageStart.cs" />

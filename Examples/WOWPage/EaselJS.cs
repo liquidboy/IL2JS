@@ -12,7 +12,7 @@ namespace WOWPage
 
 
     [Import]
-    public class CreateJS
+    public class EaselJS
     {
         [Import(@"function(id){ return new this.createjs.Stage(id) ; }")]
         extern public Stage Stage(string canvasName);
@@ -132,6 +132,16 @@ namespace WOWPage
 
     }
 
+
+    [Import]
+    public class Event
+    {
+        [Import(Creation = Creation.Object)]
+        extern public Event();
+
+        extern public Microsoft.LiveLabs.JavaScript.JSObject target { get; set; }
+    }
+
     [Export(PassInstanceAsArgument = true)]
-    public delegate void EventListenerCallback(DomNode node);
+    public delegate void EventListenerCallback(Event node);
 }
