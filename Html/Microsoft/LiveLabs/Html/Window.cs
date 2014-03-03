@@ -91,6 +91,8 @@ namespace Microsoft.LiveLabs.Html
         public event HtmlEventHandler Resize { add { AttachEvent(this, "resize", value); } remove { DetachEvent(this, "resize", value); } }
         public event HtmlEventHandler Scroll { add { AttachEvent(this, "scroll", value); } remove { DetachEvent(this, "scroll", value); } }
 
+
+
         [Import("onerror")]
         extern public ErrorEventHandler OnError { get; set; }
 
@@ -116,6 +118,7 @@ namespace Microsoft.LiveLabs.Html
 
         extern public int SetInterval(Action callback, int msec);
         extern public void ClearInterval(int timerID);
+        extern public void RequestAnimationFrame(Action callback);
         extern public void ScrollBy(int x, int y);
         extern public void ScrollTo(int x, int y);
         extern public void MoveTo(int x, int y);
