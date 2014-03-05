@@ -55,6 +55,9 @@ namespace WOWPage
         [Import(@"function(map){ return new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, map: map, side: THREE.DoubleSide } ); }")]
         extern public Material MeshLambertMaterial(TextureMap map);
 
+        [Import(@"function(){ return new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true, transparent: true, opacity: 0.1, side: THREE.DoubleSide } ); }")]
+        extern public Material MeshBasicMaterial();
+
         [Import(@"function(geometry, material){ return new THREE.Mesh( geometry, material ); }")]
         extern public Mesh Mesh(SphereGeometry geometry, Material material);
 
@@ -63,6 +66,35 @@ namespace WOWPage
 
         [Import(@"function(x,y,r){ return new THREE.SphereGeometry( x, y, r ); }")]
         extern public SphereGeometry SphereGeometry(int x, int y, int r);
+
+        [Import(@"function(grannyKnot){ return new THREE.ParametricGeometries.TubeGeometry(grannyKnot, 150, 2, 8, true, false); }")]
+        extern public TubeGeometry TubeGeometry(GrannyKnot grannyKnot);
+
+        [Import(@"function(){ return new THREE.Curves.GrannyKnot(); }")]
+        extern public GrannyKnot GrannyKnot();
+
+
+        [Import(@"function(tube2, materials){ return THREE.SceneUtils.createMultiMaterialObject( tube2, materials ); }")]
+        extern public Mesh createMultiMaterialObject(TubeGeometry tube, Material[] materials);
+    }
+
+    [Import]
+    public class TubeGeometry
+    {
+        [Import(Creation = Creation.Object)]
+        extern public TubeGeometry();
+    }
+
+
+
+    [Import]
+    public class GrannyKnot
+    {
+        [Import(Creation = Creation.Object)]
+        extern public GrannyKnot();
+
+        [Import(@"function(inst){ return new THREE.ParametricGeometries.TubeGeometry(inst, 150, 2, 8, true, false); }", PassInstanceAsArgument = true)]
+        extern public TubeGeometry TubeGeometry();
     }
 
     [Import]
