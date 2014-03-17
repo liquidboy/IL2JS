@@ -70,3 +70,11 @@ namespace WOWPage.ModernFx
 
     }
 }
+
+
+
+//investigate using TH
+//- FILES - http://hg.mozilla.org/labs/th/file/9f0aca725fc4/src/
+//- http://hg.mozilla.org/labs/th/file/9f0aca725fc4/src/util.js
+//- http://hg.mozilla.org/labs/th/file/9f0aca725fc4/src/th.js
+//- http://hg.mozilla.org/labs/th/file/9f0aca725fc4/src/components.js
