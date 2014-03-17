@@ -127,6 +127,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DirectCanvas.cs" />
+    <Compile Include="LibraryManager.cs" />
     <Compile Include="ThreeJS.cs" />
     <Compile Include="EaselJS.cs" />
     <Compile Include="OpenJS\BrowserUtility.cs" />
