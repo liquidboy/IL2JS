@@ -30,5 +30,21 @@ namespace Microsoft.LiveLabs.Html
 
         [Import("fillRect")]
         extern public string FillRect(int x, int y, int w, int h);
+
+        [Import("fillText")]
+        extern public void FillText(string str, int y, int x);
+
+        [Import("font")]
+        extern public string FontFamily{get;set;}
+
+        [Import("textBaseline")]
+        extern public string TextBaseline{ get; set; }
+
+        [Import("textAlign")]
+        extern public string TextAlign{ get; set; }
+
+
+
+
     }
 }

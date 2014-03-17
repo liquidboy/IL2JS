@@ -102,7 +102,16 @@
   <ItemGroup>
     <Reference Include="system" />
     <Reference Include="System.Core" />
+    <Reference Include="System.CoreEx">
+      <HintPath>..\..\..\..\..\..\..\GitProjectsEx\IL2JS-master\Rx\System.CoreEx.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Observable">
+      <HintPath>..\..\..\..\..\..\..\GitProjectsEx\IL2JS-master\Rx\System.Observable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive">
+      <HintPath>..\..\..\..\..\..\..\GitProjectsEx\IL2JS-master\Rx\System.Reactive.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
@@ -124,18 +133,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="031\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="031\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx.cs</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DirectCanvas.cs" />
     <Compile Include="LibraryManager.cs" />
     <Compile Include="ModernFx\Application.cs" />
+    <Compile Include="ModernFx\HtmlObservable.cs" />
+    <Compile Include="ModernFx\Tracing.cs" />
     <Compile Include="ThreeJS.cs" />
     <Compile Include="EaselJS.cs" />
     <Compile Include="OpenJS\BrowserUtility.cs" />
@@ -186,7 +191,9 @@
     <Content Include="031\controls.toggleonoff.js" />
     <Content Include="031\controls.videobasic.js" />
     <Content Include="031\controls.videocontrolsbasic.js" />
-    <Content Include="031\Default.aspx" />
+    <Content Include="031\Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="031\experience.dbg.js" />
     <Content Include="031\experience.js" />
     <Content Include="031\experience.preloader.js" />

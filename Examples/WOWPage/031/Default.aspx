@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="webWinDesignerDeveloper._031.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="webWinDesignerDeveloper._031.Default" %>
 <%@ Register src="../AllPagesNavigation.ascx" tagname="AllPagesNavigation" tagprefix="uc1" %>
 <%@ Register src="../Analytics.ascx" tagname="Analytics" tagprefix="uc2" %>
 <%@ Register src="../BackHeader.ascx" tagname="BackHeader" tagprefix="uc3" %>

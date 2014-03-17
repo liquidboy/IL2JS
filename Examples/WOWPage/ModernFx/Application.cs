@@ -16,6 +16,8 @@ namespace WOWPage.ModernFx
     {
         public int NumberOfScriptsToLoad { get; set; }
         Stats stats;
+        Tracing tracing;
+
 
         public void Loaded()
         {
@@ -33,6 +35,9 @@ namespace WOWPage.ModernFx
                 stats.domElement.Style.Position = "absolute";
                 stats.domElement.Style.Top = "0px";
                 div.Add(stats.domElement);
+
+
+                tracing = new Tracing();
 
 
                 _loop();
@@ -55,17 +60,25 @@ namespace WOWPage.ModernFx
 
             if (stats != null) stats.update();
 
-            _render();
+            _update();
+            _draw();
 
         }
 
-        private void _render()
+        private void _update()
+        {
+
+        }
+
+        private void _draw()
         {
             LibraryManager.DirectCanvas.Context.LineWidth = 2;
             LibraryManager.DirectCanvas.Context.StrokeStyle = "red";
 
             LibraryManager.DirectCanvas.Context.FillStyle = "#9ea7b8";
             LibraryManager.DirectCanvas.Context.FillRect(0, 0, Browser.Window.InnerWidth, Browser.Window.InnerHeight);
+
+            tracing.DrawString("test", 100, 100);
         }
 
     }
