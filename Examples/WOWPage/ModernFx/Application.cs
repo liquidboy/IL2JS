@@ -31,13 +31,47 @@ namespace WOWPage.ModernFx
 
                 var div = LibraryManager.DirectCanvas.CreateRoot();
 
+                //statistics
                 stats = LibraryManager.ThreeJS.Stats();
                 stats.domElement.Style.Position = "absolute";
                 stats.domElement.Style.Top = "0px";
                 div.Add(stats.domElement);
 
-
+                //tracing
                 tracing = new Tracing();
+
+                //events
+                var mouseDown = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseDown += h, h => LibraryManager.DirectCanvas.Canvas.MouseDown -= h);
+                var mouseUp = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseUp += h, h => LibraryManager.DirectCanvas.Canvas.MouseUp -= h);
+                var mouseMove = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseMove += h, h => LibraryManager.DirectCanvas.Canvas.MouseMove -= h);
+                var mouseOut = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseOut += h, h => LibraryManager.DirectCanvas.Canvas.MouseOut -= h);
+                var mouseOver = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseOver += h, h => LibraryManager.DirectCanvas.Canvas.MouseOver -= h);
+
+                mouseDown.Subscribe
+                    (mouseEvent =>
+                    {
+                        tracing.DrawString("MOUSE DOWN x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 100);
+                    });
+                mouseUp.Subscribe
+                    (mouseEvent =>
+                    {
+                        tracing.DrawString("MOUSE UP x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 120);
+                    });
+                mouseMove.Subscribe
+                    (mouseEvent => {
+                        tracing.DrawString("MOUSE MOVE x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 140);
+                    });
+                mouseOut.Subscribe
+                    (mouseEvent =>
+                    {
+                        tracing.DrawString("MOUSE OUT x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 160);
+                    });
+                mouseOver.Subscribe
+                    (mouseEvent =>
+                    {
+                        tracing.DrawString("MOUSE OVER x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 180);
+                    });
+
 
 
                 _loop();
@@ -78,7 +112,7 @@ namespace WOWPage.ModernFx
             LibraryManager.DirectCanvas.Context.FillStyle = "#9ea7b8";
             LibraryManager.DirectCanvas.Context.FillRect(0, 0, Browser.Window.InnerWidth, Browser.Window.InnerHeight);
 
-            tracing.DrawString("test", 100, 100);
+            
         }
 
     }

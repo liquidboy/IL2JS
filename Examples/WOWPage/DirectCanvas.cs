@@ -16,7 +16,7 @@ namespace WOWPage
         Canvas _canvasRoot;
 
         public Context2D Context { get { return _canvasRoot.Context2D(); } }
-
+        public Canvas Canvas { get{ return _canvasRoot; } }
 
         public Div CreateRoot()
         {
