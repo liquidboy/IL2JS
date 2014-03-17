@@ -124,6 +124,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="031\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="031\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx.cs</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -150,6 +156,54 @@
     <None Include="Start_silverlight.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="031\animation.animationengine.js" />
+    <Content Include="031\animation.easing.js" />
+    <Content Include="031\animation.storyboard.js" />
+    <Content Include="031\application.appcontainer.js" />
+    <Content Include="031\application.bootstrap.js" />
+    <Content Include="031\application.CONFIGURATION.js" />
+    <Resource Include="031\assets\appbar.back.rest.png" />
+    <Content Include="031\assets\BlankFrame.htm" />
+    <Content Include="031\assets\LiquidParticles.js" />
+    <Resource Include="031\assets\ref001.jpg" />
+    <Content Include="031\controls.behaviors.clickanimation.js" />
+    <Content Include="031\controls.calendar.day.js" />
+    <Content Include="031\controls.calendar.month.js" />
+    <Content Include="031\controls.canvashost.js" />
+    <Content Include="031\controls.controlbase.js" />
+    <Content Include="031\controls.elasticbutton.js" />
+    <Content Include="031\controls.elasticrectangleanimated.js" />
+    <Content Include="031\controls.framehost.js" />
+    <Content Include="031\controls.imageanimated.js" />
+    <Content Include="031\controls.imagebasic.js" />
+    <Content Include="031\controls.rectangle.js" />
+    <Content Include="031\controls.rectangleanimated.js" />
+    <Content Include="031\controls.rectangleanimatedwithtext.js" />
+    <Content Include="031\controls.rectangletilt.js" />
+    <Content Include="031\controls.silverlighthost.js" />
+    <Content Include="031\controls.singleswipelist.js" />
+    <Content Include="031\controls.textanimated.js" />
+    <Content Include="031\controls.toggleonoff.js" />
+    <Content Include="031\controls.videobasic.js" />
+    <Content Include="031\controls.videocontrolsbasic.js" />
+    <Content Include="031\Default.aspx" />
+    <Content Include="031\experience.dbg.js" />
+    <Content Include="031\experience.js" />
+    <Content Include="031\experience.preloader.js" />
+    <Content Include="031\floatingcontrols.buttonimage.js" />
+    <Content Include="031\floatingcontrols.controlbase.js" />
+    <Content Include="031\floatingcontrols.label.js" />
+    <Content Include="031\floatingcontrols.pagenavigator.js" />
+    <Content Include="031\floatingcontrols.tooltip.js" />
+    <Content Include="031\threed.library.jsgl.js" />
+    <Content Include="031\threed.matrix3dprojection.js" />
+    <Content Include="031\threed.planeprojection.js" />
+    <Content Include="031\utils.frameratecounter.js" />
+    <Content Include="031\utils.image.js" />
+    <Content Include="031\utils.interpolation.js" />
+    <Content Include="031\utils.textdraw.js" />
+    <Content Include="031\views.pagebase.js" />
+    <Content Include="031\views.pagex.js" />
     <Content Include="CurveExtras.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
