@@ -14,15 +14,15 @@ namespace WOWPage.ModernFx
 {
     public class Application
     {
-        public int NoScriptsToLoad { get; set; }
+        public int NumberOfScriptsToLoad { get; set; }
         Stats stats;
 
         public void Loaded()
         {
-            if (NoScriptsToLoad <= 0) return;
+            if (NumberOfScriptsToLoad <= 0) return;
 
-            NoScriptsToLoad--;
-            if (NoScriptsToLoad > 0) return;
+            NumberOfScriptsToLoad--;
+            if (NumberOfScriptsToLoad > 0) return;
 
             try
             {
