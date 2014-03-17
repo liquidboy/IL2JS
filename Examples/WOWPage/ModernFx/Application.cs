@@ -17,7 +17,7 @@ namespace WOWPage.ModernFx
         public int NoScriptsToLoad { get; set; }
         Stats stats;
 
-        public void DirectCanvasLoaded()
+        public void Loaded()
         {
             if (NoScriptsToLoad <= 0) return;
 
@@ -35,7 +35,7 @@ namespace WOWPage.ModernFx
                 div.Add(stats.domElement);
 
 
-                DirectCanvasLoop();
+                _loop();
 
             }
             catch (Exception ex)
@@ -49,17 +49,17 @@ namespace WOWPage.ModernFx
             LibraryManager.DirectCanvas.Resize(Browser.Window.InnerWidth, Browser.Window.InnerHeight);
         }
 
-        private void DirectCanvasLoop()
+        private void _loop()
         {
-            Browser.Window.RequestAnimationFrame(DirectCanvasLoop);
+            Browser.Window.RequestAnimationFrame(_loop);
 
             if (stats != null) stats.update();
 
-            DirectCanvasRender();
+            _render();
 
         }
 
-        private void DirectCanvasRender()
+        private void _render()
         {
             LibraryManager.DirectCanvas.Context.LineWidth = 2;
             LibraryManager.DirectCanvas.Context.StrokeStyle = "red";
