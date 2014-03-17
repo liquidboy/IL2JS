@@ -14,14 +14,15 @@ namespace WOWPage.ModernFx
 {
     public class Application
     {
-        int directCanvasScriptsCounter = 2;
+        public int NoScriptsToLoad { get; set; }
         Stats stats;
 
         public void DirectCanvasLoaded()
         {
+            if (NoScriptsToLoad <= 0) return;
 
-            directCanvasScriptsCounter--;
-            if (directCanvasScriptsCounter > 0) return;
+            NoScriptsToLoad--;
+            if (NoScriptsToLoad > 0) return;
 
             try
             {
@@ -53,7 +54,6 @@ namespace WOWPage.ModernFx
             Browser.Window.RequestAnimationFrame(DirectCanvasLoop);
 
             if (stats != null) stats.update();
-
 
             DirectCanvasRender();
 
