@@ -16,8 +16,8 @@ namespace WOWPage.ModernFx
     {
         public int NumberOfScriptsToLoad { get; set; }
         Stats stats;
-        Tracing tracing;
-
+        Tracing _tracing;
+        StartScreen startScreen;
 
         public void Loaded()
         {
@@ -38,7 +38,10 @@ namespace WOWPage.ModernFx
                 div.Add(stats.domElement);
 
                 //tracing
-                tracing = new Tracing();
+                _tracing = new Tracing();
+
+                //startScreen
+                startScreen = new StartScreen();
 
                 //events
                 var mouseDown = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseDown += h, h => LibraryManager.DirectCanvas.Canvas.MouseDown -= h);
@@ -47,32 +50,11 @@ namespace WOWPage.ModernFx
                 var mouseOut = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseOut += h, h => LibraryManager.DirectCanvas.Canvas.MouseOut -= h);
                 var mouseOver = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseOver += h, h => LibraryManager.DirectCanvas.Canvas.MouseOver -= h);
 
-                mouseDown.Subscribe
-                    (mouseEvent =>
-                    {
-                        tracing.DrawString("MOUSE DOWN x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 100);
-                    });
-                mouseUp.Subscribe
-                    (mouseEvent =>
-                    {
-                        tracing.DrawString("MOUSE UP x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 120);
-                    });
-                mouseMove.Subscribe
-                    (mouseEvent => {
-                        tracing.DrawString("MOUSE MOVE x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 140);
-                    });
-                mouseOut.Subscribe
-                    (mouseEvent =>
-                    {
-                        tracing.DrawString("MOUSE OUT x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 160);
-                    });
-                mouseOver.Subscribe
-                    (mouseEvent =>
-                    {
-                        tracing.DrawString("MOUSE OVER x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 180);
-                    });
-
-
+                mouseDown.Subscribe(startScreen.OnMouseDown);
+                mouseUp.Subscribe(startScreen.OnMouseUp);
+                mouseMove.Subscribe(startScreen.OnMouseMove);
+                mouseOut.Subscribe(startScreen.OnMouseOut);
+                mouseOver.Subscribe(startScreen.OnMouseOver);
 
                 _loop();
 
@@ -111,10 +93,10 @@ namespace WOWPage.ModernFx
 
             LibraryManager.DirectCanvas.Context.FillStyle = "#9ea7b8";
             LibraryManager.DirectCanvas.Context.FillRect(0, 0, Browser.Window.InnerWidth, Browser.Window.InnerHeight);
-
-            
         }
 
+
+        
     }
 }
 
