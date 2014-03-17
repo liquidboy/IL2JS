@@ -22,6 +22,12 @@ namespace Microsoft.LiveLabs.Html
         [Import("fillStyle")]
         extern public string FillStyle { get; set; }
 
+        [Import("lineWidth")]
+        extern public int LineWidth { get; set; }
+
+        [Import("strokeStyle")]
+        extern public string StrokeStyle { get; set; }
+
         [Import("fillRect")]
         extern public string FillRect(int x, int y, int w, int h);
     }
