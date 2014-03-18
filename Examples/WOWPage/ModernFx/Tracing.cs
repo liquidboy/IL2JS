@@ -15,20 +15,11 @@ namespace WOWPage.ModernFx
     {
         public void DrawString(string data, int x, int y)
         {
-            //Dbg.Surface.font = "10pt DebugFont";
             LibraryManager.DirectCanvas.Context.FontFamily = "10pt DebugFont";
-            //Dbg.Surface.textBaseline = "top";
             LibraryManager.DirectCanvas.Context.TextBaseline = "top";
-            //Dbg.Surface.textAlign = "left";
             LibraryManager.DirectCanvas.Context.TextAlign = "left";
 
-            ////Dbg.Surface.fillStyle = "#000";
-            ////Dbg.Surface.fillText(str, x + 1, y + 1);
-
-            ////Dbg.Surface.fillStyle = "#fff";
-            //Dbg.Surface.fillStyle = "#f00";
             LibraryManager.DirectCanvas.Context.FillStyle = "#f00";
-            //Dbg.Surface.fillText(str, x, y);
             LibraryManager.DirectCanvas.Context.FillText(data, x, y);
         }
     }

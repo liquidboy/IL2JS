@@ -29,6 +29,12 @@ namespace Microsoft.LiveLabs.Html
         extern public int OffsetY { get; }
         extern public int ScreenX { get; }
         extern public int ScreenY { get; }
+        extern public int PageX { get; }
+        extern public int PageY { get; }
+        extern public int LayerX { get; }
+        extern public int LayerY { get; }
+
+
 
         extern public HtmlElement RelatedTarget { get; }
         [Import("target")]

@@ -93,6 +93,10 @@ namespace WOWPage.ModernFx
 
             LibraryManager.DirectCanvas.Context.FillStyle = "#9ea7b8";
             LibraryManager.DirectCanvas.Context.FillRect(0, 0, Browser.Window.InnerWidth, Browser.Window.InnerHeight);
+
+
+            _tracing.DrawString(startScreen.mInertiaMaxTimeX.ToString(), 100, 100);
+
         }
 
 
