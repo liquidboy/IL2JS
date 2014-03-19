@@ -30,11 +30,18 @@ namespace WOWPage.ModernFx
 
         bool mouseDownHandled;
         bool mPanningActive;
+        bool mbProcessInertiaX;
+        bool mbProcessInertiaY;
 
         double mLastX;
         double mLastY;
         public double mViewportTargetX;
         public double mViewportTargetY;
+
+        double mCurrentDirectionX;
+        double mCurrentDirectionY;
+        public double mViewportX;
+        public double mViewportY;
 
         System.Windows.Threading.DispatcherTimer dt = new System.Windows.Threading.DispatcherTimer();
 
@@ -141,6 +148,8 @@ namespace WOWPage.ModernFx
             {
                 mPanningActive = false;
 
+                mbProcessInertiaX = true;
+                mbProcessInertiaY = true;
 
                 // decrease velocity; duration of last mousemove to this mouseup event
                 // indicates a hold gesture
@@ -180,6 +189,109 @@ namespace WOWPage.ModernFx
         public void OnMouseOver(HtmlEvent mouseEvent)
         {
             //_tracing.DrawString("MOUSE OVER x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 180);
+        }
+
+
+        int ViewportMaxX = 10000;
+        int ViewportMaxY = 10000;
+        int ViewportMinX = -10000;
+        int ViewportMinY = -10000;
+        public void Update()
+        {
+
+            // pre-cap target viewport
+            mViewportTargetX = Math.Min(ViewportMaxX, Math.Max(ViewportMinX, mViewportTargetX));
+            mViewportTargetY = Math.Min(ViewportMaxY, Math.Max(ViewportMinY, mViewportTargetY));
+
+            if (mPanningActive) // builds current velocity
+            {	// measure total user-input delta
+                // we do this here because the MouseMove() can get called many times more often than Update()
+                // particularly on systems with oversampled mice (eg: gaming rigs)
+
+                var dX = mViewportTargetX - mLastX;
+                mLastX = mViewportTargetX;
+
+                // we track this for inertia's sake
+                var velocity = Math.Abs(dX);
+                mCurrentVelocityX += (velocity - mCurrentVelocityX) * .3;
+                mCurrentDirectionX = dX < 0 ? -1 : 1;
+
+
+                var dY = mViewportTargetY - mLastY;
+                mLastY = mViewportTargetY;
+
+                // we track this for inertia's sake
+                var velocityY = Math.Abs(dY);
+                mCurrentVelocityY += (velocityY - mCurrentVelocityY) * .3;
+                mCurrentDirectionY = dY < 0 ? -1 : 1;
+
+            }
+            else
+            {
+                if (mbProcessInertiaX) // decreases current velocity
+                {	// apply simple inertia
+
+                    mViewportTargetX += mCurrentVelocityX * mCurrentDirectionX;
+                    mCurrentVelocityX *= .9;
+
+                    //Dbg.Print("mViewportTargetX: " + mViewportTargetX);
+                    //Dbg.Print("mCurrentVelocityX: " + mCurrentVelocityX);
+
+                    if (mViewportTargetX < ViewportMinX || mViewportTargetX > ViewportMaxX)
+                    {	// precap and cut inertia short because we hit a wall
+                        mCurrentVelocityX = 0;
+                        mbProcessInertiaX = false;
+                    }
+
+                    if (mCurrentVelocityX < 0.01)
+                    {	// end inertia
+                        mbProcessInertiaX = false;
+                        mCurrentVelocityX = 0;
+                    }
+
+                }
+
+                if (mbProcessInertiaY) // decreases current velocity
+                {	// apply simple inertia
+
+                    mViewportTargetY += mCurrentVelocityY * mCurrentDirectionY;
+                    mCurrentVelocityY *= .9;
+
+                    if (mViewportTargetY < ViewportMinY || mViewportTargetY > ViewportMaxY)
+                    {	// precap and cut inertia short because we hit a wall
+                        mCurrentVelocityY = 0;
+                        mbProcessInertiaY = false;
+                    }
+
+                    if (mCurrentVelocityY < 0.01)
+                    {	// end inertia
+                        mbProcessInertiaY = false;
+                        mCurrentVelocityY = 0;
+                    }
+
+                }
+            }
+            // at this point the current velocity has been computed and is ready for use
+            this.mCurrentVelocityX = mCurrentVelocityX / 15d; //15ms = framelength
+            this.mCurrentVelocityY = mCurrentVelocityY / 15d;
+
+            // catch up the viewport to the virtual viewport
+            // this allows us to add smoothing really simply and consistently
+            var smoothingFactor = 0.12; // [0.05,1] is a sensible range
+            var speed = (mViewportTargetX - mViewportX) * smoothingFactor;
+            mViewportX += speed;
+
+            //if (this.AllowVerticalNavigation)
+            //{
+                var smoothingFactorY = 0.12; // [0.05,1] is a sensible range
+                var speedY = (mViewportTargetY - mViewportY) * smoothingFactorY;
+                mViewportY += speedY;
+            //}
+            //else mViewportY = 0;
+
+
+
+
         }
 
     }
