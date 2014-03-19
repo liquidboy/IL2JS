@@ -77,6 +77,11 @@ namespace WOWPage.ModernFx
             mLastY = mViewportTargetY;
 
 
+            //var timeNow = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+            //mLastMotionUpdateX = timeNow;
+            //mLastMotionUpdateY = timeNow;
+
+
             mPanningActive = true;
 
         }
