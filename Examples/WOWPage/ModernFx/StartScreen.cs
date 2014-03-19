@@ -19,15 +19,12 @@ namespace WOWPage.ModernFx
 
         double mLastMouseX;
         double mLastMouseY;
-        double mCurrentInertiaX;
-        double mCurrentInertiaY;
+
         public double mCurrentVelocityX;
         public double mCurrentVelocityY;
-        double mLastMotionUpdateX;
-        double mLastMotionUpdateY;
+        public double mLastMotionUpdateX;
+        public double mLastMotionUpdateY;
 
-        double mMousePointerX;
-        double mMousePointerY;
         double mMousePointerDownX;
         double mMousePointerDownY;
         public double mMousePointerRealX;
@@ -35,8 +32,6 @@ namespace WOWPage.ModernFx
 
         bool mouseDownHandled;
         bool mPanningActive;
-        bool mbProcessInertiaX;
-        bool mbProcessInertiaY;
 
         double mMouseDragOpacityTarget;
 
@@ -44,9 +39,6 @@ namespace WOWPage.ModernFx
         double mLastY;
         double mViewportTargetX;
         double mViewportTargetY;
-
-        public double mInertiaMaxTimeX;
-        public double mInertiaMaxTimeY;
 
         System.Windows.Threading.DispatcherTimer dt = new System.Windows.Threading.DispatcherTimer();
 
@@ -56,9 +48,10 @@ namespace WOWPage.ModernFx
 
             dt.Interval = TimeSpan.FromMilliseconds(50);
             dt.Tick += (e,t) => {
+                dt.Stop();
                 mMousePointerDownX = 0;
                 mMousePointerDownY = 0;
-                dt.Stop();
+                
             };
 
         }
@@ -73,17 +66,13 @@ namespace WOWPage.ModernFx
 
             mLastMouseX = mouseEvent.PageX;
             mLastMouseY = mouseEvent.PageY;
-            mCurrentInertiaX = 0;
+            
             mCurrentVelocityX = 0;
             mLastMotionUpdateX = 0; 
             mLastMotionUpdateY = 0;
 
 
             mouseEvent.PreventDefault();
-
-
-            mMousePointerX = offX;  
-            mMousePointerY = offY; 
 
             mMousePointerDownX = offX;  
             mMousePointerDownY = offY;  
@@ -103,55 +92,6 @@ namespace WOWPage.ModernFx
             //}
 
 
-
-        }
-        public void OnMouseUp(HtmlEvent mouseEvent)
-        {
-            //_tracing.DrawString("MOUSE UP x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 120);
-
-             //firefox issue with offset !!! grrrr
-            int offX = 0, offY = 0;
-            offX = mouseEvent.OffsetX;
-            offY = mouseEvent.OffsetY;
-
-            if (mPanningActive)
-            {
-                mPanningActive = false;
-                mCurrentInertiaX = Math.Abs(mCurrentVelocityX);
-                mCurrentInertiaY = Math.Abs(mCurrentVelocityY);
-                mInertiaMaxTimeX = 300 + mCurrentInertiaX * 500;
-                mInertiaMaxTimeY = 300 + mCurrentInertiaY * 500;
-                mbProcessInertiaX = true;
-                mbProcessInertiaY = true;
-
-                // decrease velocity; duration of last mousemove to this mouseup event
-                // indicates a hold gesture
-                var timeNow = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds ; //new Date().getTime();
-
-                var deltaTimeX = timeNow - mLastMotionUpdateX;
-                deltaTimeX = Math.Max(10, deltaTimeX); // low-timer granularity compensation
-                mLastMotionUpdateX = 0;
-
-                //Dbg.Print("deltaTime : " + deltaTime);
-
-                var deltaTimeY = timeNow - mLastMotionUpdateY;
-                deltaTimeY = Math.Max(10, deltaTimeY); // low-timer granularity compensation
-                mLastMotionUpdateY = 0;
-
-                // 100msec is a full hold gesture that complete zeroes out the velocity to be used as inertia
-                mCurrentVelocityX *= 1 - Math.Min(1, Math.Max(0, deltaTimeX / 100));
-                mCurrentVelocityY *= 1 - Math.Min(1, Math.Max(0, deltaTimeY / 100));
-            }
-
-            mLastX = 0;
-            mLastY = 0;
-            mMouseDragOpacityTarget = 0;
-
-
-
-            dt.Start();
-
-            //notifyControlsOfMouseUpEvents(offX, offY);
 
         }
         public void OnMouseMove(HtmlEvent mouseEvent)
@@ -184,6 +124,9 @@ namespace WOWPage.ModernFx
                 var deltaX = newX - mLastMouseX;
                 var deltaY = newY - mLastMouseY;
 
+                _tracing.DrawString("deltaX : " + newX.ToString(), 20, 140);
+                _tracing.DrawString("deltaY : " + newY.ToString(), 20, 160);
+
                 //Dbg.Print("deltaX : " + deltaX);
 
                 mLastMouseX = newX;
@@ -191,8 +134,6 @@ namespace WOWPage.ModernFx
                 mLastMotionUpdateX = timeNow;
                 mLastMotionUpdateY = timeNow;
 
-                mMousePointerX = offX;  //mouseEvent.offsetX;
-                mMousePointerY = offY; //mouseEvent.offsetY;
 
                 mViewportTargetX -= deltaX;
                 mViewportTargetY -= deltaY;
@@ -204,10 +145,48 @@ namespace WOWPage.ModernFx
             mMousePointerRealY = offY; // mouseEvent.offsetY;
 
 
-            //notifyControlsOfMouseMoveEvents(offX, offY); //mouseEvent.offsetX, mouseEvent.offsetY);
+        }
+        public void OnMouseUp(HtmlEvent mouseEvent)
+        {
+            //_tracing.DrawString("MOUSE UP x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 120);
 
+            if (mPanningActive)
+            {
+                mPanningActive = false;
+
+
+                // decrease velocity; duration of last mousemove to this mouseup event
+                // indicates a hold gesture
+                var timeNow = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds ; //new Date().getTime();
+
+                var deltaTimeX = timeNow - mLastMotionUpdateX;
+                deltaTimeX = Math.Max(10, deltaTimeX); // low-timer granularity compensation
+               // mLastMotionUpdateX = 0;
+                
+                //Dbg.Print("deltaTime : " + deltaTime);
+
+                var deltaTimeY = timeNow - mLastMotionUpdateY;
+                deltaTimeY = Math.Max(10, deltaTimeY); // low-timer granularity compensation
+                mLastMotionUpdateY = 0;
+
+                // 100msec is a full hold gesture that complete zeroes out the velocity to be used as inertia
+                mCurrentVelocityX *= 1d - Math.Min(1, Math.Max(0, deltaTimeX / 100d));
+                mCurrentVelocityY *= 1d - Math.Min(1, Math.Max(0, deltaTimeY / 100d));
+
+                _tracing.DrawString("mCurrentVelocityX : " + mCurrentVelocityX.ToString(), 20, 120);
+                _tracing.DrawString("mCurrentVelocityY : " + mCurrentVelocityY.ToString(), 20, 140);
+            }
+
+            mLastX = 0;
+            mLastY = 0;
+            mMouseDragOpacityTarget = 0;
+
+            dt.Start();
+
+            //notifyControlsOfMouseUpEvents(offX, offY);
 
         }
+       
         public void OnMouseOut(HtmlEvent mouseEvent)
         {
             //_tracing.DrawString("MOUSE OUT x: " + mouseEvent.ClientX + " y: " + mouseEvent.ClientY, 20, 160);

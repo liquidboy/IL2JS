@@ -103,14 +103,14 @@
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.CoreEx">
-      <HintPath>..\..\..\..\..\..\..\GitProjectsEx\IL2JS-master\Rx\System.CoreEx.dll</HintPath>
+      <HintPath>..\..\Rx\System.CoreEx.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Observable">
-      <HintPath>..\..\..\..\..\..\..\GitProjectsEx\IL2JS-master\Rx\System.Observable.dll</HintPath>
+      <HintPath>..\..\Rx\System.Observable.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive">
-      <HintPath>..\..\..\..\..\..\..\GitProjectsEx\IL2JS-master\Rx\System.Reactive.dll</HintPath>
+      <HintPath>..\..\Rx\System.Reactive.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Xml" />
