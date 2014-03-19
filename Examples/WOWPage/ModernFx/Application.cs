@@ -94,8 +94,22 @@ namespace WOWPage.ModernFx
             LibraryManager.DirectCanvas.Context.FillStyle = "#9ea7b8";
             LibraryManager.DirectCanvas.Context.FillRect(0, 0, Browser.Window.InnerWidth, Browser.Window.InnerHeight);
 
+            LibraryManager.DirectCanvas.Context.FillStyle = "#ffffff";
+            LibraryManager.DirectCanvas.Context.FillRect(
+                ((int)startScreen.mViewportTargetX * -1) + ((Browser.Window.InnerWidth / 2) - 5),
+                ((int)startScreen.mViewportTargetY * -1) + ((Browser.Window.InnerHeight / 2) - 5), 
+                10, 
+                10);
+            
 
-            _tracing.DrawString(startScreen.mCurrentVelocityX.ToString(), 100, 100);
+
+            var data = string.Format("x={0} y={1} vx={2} vy={3}", 
+                startScreen.mViewportTargetX.ToString(),
+                startScreen.mViewportTargetY.ToString(),
+                startScreen.mCurrentVelocityX.ToString(),
+                startScreen.mCurrentVelocityY.ToString());
+
+            _tracing.DrawString(data, 100, 100);
 
         }
 

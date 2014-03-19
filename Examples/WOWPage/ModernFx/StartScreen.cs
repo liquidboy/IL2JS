@@ -27,18 +27,14 @@ namespace WOWPage.ModernFx
 
         double mMousePointerDownX;
         double mMousePointerDownY;
-        public double mMousePointerRealX;
-        public double mMousePointerRealY;
 
         bool mouseDownHandled;
         bool mPanningActive;
 
-        double mMouseDragOpacityTarget;
-
         double mLastX;
         double mLastY;
-        double mViewportTargetX;
-        double mViewportTargetY;
+        public double mViewportTargetX;
+        public double mViewportTargetY;
 
         System.Windows.Threading.DispatcherTimer dt = new System.Windows.Threading.DispatcherTimer();
 
@@ -80,18 +76,8 @@ namespace WOWPage.ModernFx
             mLastX = mViewportTargetX;
             mLastY = mViewportTargetY;
 
-            //positioned here so that controls can intercept message and cancel the bubble to the code
-            //that follows
-            //notifyControlsOfMouseDownEvents(offX, offY);
 
-            // if mouse wasnt handled by any of the pages, use it for scrolling
-            //if (!mouseDownHandled)
-            //{
-                mPanningActive = true;
-                mMouseDragOpacityTarget = 1;
-            //}
-
-
+            mPanningActive = true;
 
         }
         public void OnMouseMove(HtmlEvent mouseEvent)
@@ -113,8 +99,6 @@ namespace WOWPage.ModernFx
                 var timeNow = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
                 //var deltaTime = timeNow - mLastMotionUpdate;
 
-                mMouseDragOpacityTarget = 1;
-
                 //Dbg.Print('pageX : ' + mouseEvent.pageX + ' offsetX : ' + offX); //mouseEvent.offsetX);
                 //Dbg.Print('pageY : ' + mouseEvent.pageY + ' offsetY : ' + offY);  //mouseEvent.offsetY);
 
@@ -124,8 +108,8 @@ namespace WOWPage.ModernFx
                 var deltaX = newX - mLastMouseX;
                 var deltaY = newY - mLastMouseY;
 
-                _tracing.DrawString("deltaX : " + newX.ToString(), 20, 140);
-                _tracing.DrawString("deltaY : " + newY.ToString(), 20, 160);
+                _tracing.DrawString("deltaX : " + deltaX.ToString(), 20, 140);
+                _tracing.DrawString("deltaY : " + deltaY.ToString(), 20, 160);
 
                 //Dbg.Print("deltaX : " + deltaX);
 
@@ -141,8 +125,6 @@ namespace WOWPage.ModernFx
 
             }
 
-            mMousePointerRealX = offX; // mouseEvent.offsetX;
-            mMousePointerRealY = offY; // mouseEvent.offsetY;
 
 
         }
@@ -161,7 +143,7 @@ namespace WOWPage.ModernFx
 
                 var deltaTimeX = timeNow - mLastMotionUpdateX;
                 deltaTimeX = Math.Max(10, deltaTimeX); // low-timer granularity compensation
-               // mLastMotionUpdateX = 0;
+                mLastMotionUpdateX = 0;
                 
                 //Dbg.Print("deltaTime : " + deltaTime);
 
@@ -179,8 +161,7 @@ namespace WOWPage.ModernFx
 
             mLastX = 0;
             mLastY = 0;
-            mMouseDragOpacityTarget = 0;
-
+            
             dt.Start();
 
             //notifyControlsOfMouseUpEvents(offX, offY);
