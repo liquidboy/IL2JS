@@ -42,6 +42,7 @@ namespace WOWPage.ModernFx
 
                 //startScreen
                 startScreen = new InfiniteLayout(1000,1000,-1000,-1000);
+                startScreen.AllowVerticalNavigation = true;
 
                 //events
                 var mouseDown = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseDown += h, h => LibraryManager.DirectCanvas.Canvas.MouseDown -= h);
@@ -100,8 +101,8 @@ namespace WOWPage.ModernFx
 
             LibraryManager.DirectCanvas.Context.FillStyle = "#c6c6c6";
             LibraryManager.DirectCanvas.Context.FillRect(
-                ((int)startScreen.ViewportX * -1) + ((Browser.Window.InnerWidth / 2) - 5),
-                ((int)startScreen.ViewportY * -1) + ((Browser.Window.InnerHeight / 2) - 5), 
+                (int)startScreen.X + ((Browser.Window.InnerWidth / 2) - 5), 
+                (int)startScreen.Y + ((Browser.Window.InnerHeight / 2) - 5), 
                 10, 
                 10);
             
@@ -112,8 +113,8 @@ namespace WOWPage.ModernFx
                 startScreen.ViewportTargetY.ToString());
 
             var data2 = string.Format("Current X={0} Y={1}",
-                startScreen.ViewportX.ToString(),
-                startScreen.ViewportY.ToString());
+                startScreen.X.ToString(),
+                startScreen.Y.ToString());
 
             _tracing.DrawString(data1, 100, 100);
             _tracing.DrawString(data2, 100, 80);

@@ -41,8 +41,11 @@ namespace WOWPage.ModernFx
 
         double mCurrentDirectionX;
         double mCurrentDirectionY;
-        public double ViewportX;
-        public double ViewportY;
+        double mViewportX;
+        double mViewportY;
+
+        public double X { get { return mViewportX * -1; } }
+        public double Y { get { return mViewportY * -1; } }
 
         int mViewportMaxX ;
         int mViewportMaxY ;
@@ -112,21 +115,15 @@ namespace WOWPage.ModernFx
                 // once in a while we will get a near-zero timespan
                 // which throws any velocity/inertia computation out the window
                 var timeNow = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
-                //var deltaTime = timeNow - mLastMotionUpdate;
-
-                //Dbg.Print('pageX : ' + mouseEvent.pageX + ' offsetX : ' + offX); //mouseEvent.offsetX);
-                //Dbg.Print('pageY : ' + mouseEvent.pageY + ' offsetY : ' + offY);  //mouseEvent.offsetY);
-
+                
                 // apply camera panning
                 var newX = mouseEvent.PageX;
                 var newY = mouseEvent.PageY;
                 var deltaX = newX - mLastMouseX;
                 var deltaY = newY - mLastMouseY;
 
-                _tracing.DrawString("deltaX : " + deltaX.ToString(), 20, 140);
-                _tracing.DrawString("deltaY : " + deltaY.ToString(), 20, 160);
-
-                //Dbg.Print("deltaX : " + deltaX);
+                //_tracing.DrawString("deltaX : " + deltaX.ToString(), 20, 140);
+                //_tracing.DrawString("deltaY : " + deltaY.ToString(), 20, 160);
 
                 mLastMouseX = newX;
                 mLastMouseY = newY;
@@ -150,7 +147,6 @@ namespace WOWPage.ModernFx
             if (mPanningActive)
             {
                 mPanningActive = false;
-
                 mbProcessInertiaX = true;
                 mbProcessInertiaY = true;
 
@@ -162,8 +158,6 @@ namespace WOWPage.ModernFx
                 deltaTimeX = Math.Max(10, deltaTimeX); // low-timer granularity compensation
                 mLastMotionUpdateX = 0;
                 
-                //Dbg.Print("deltaTime : " + deltaTime);
-
                 var deltaTimeY = timeNow - mLastMotionUpdateY;
                 deltaTimeY = Math.Max(10, deltaTimeY); // low-timer granularity compensation
                 mLastMotionUpdateY = 0;
@@ -172,8 +166,8 @@ namespace WOWPage.ModernFx
                 mCurrentVelocityX *= 1d - Math.Min(1, Math.Max(0, deltaTimeX / 100d));
                 mCurrentVelocityY *= 1d - Math.Min(1, Math.Max(0, deltaTimeY / 100d));
 
-                _tracing.DrawString("mCurrentVelocityX : " + mCurrentVelocityX.ToString(), 20, 120);
-                _tracing.DrawString("mCurrentVelocityY : " + mCurrentVelocityY.ToString(), 20, 140);
+                //_tracing.DrawString("mCurrentVelocityX : " + mCurrentVelocityX.ToString(), 20, 120);
+                //_tracing.DrawString("mCurrentVelocityY : " + mCurrentVelocityY.ToString(), 20, 140);
             }
 
             mLastX = 0;
@@ -202,10 +196,8 @@ namespace WOWPage.ModernFx
             ViewportTargetY = Math.Min(mViewportMaxY, Math.Max(mViewportMinY, ViewportTargetY));
 
             if (mPanningActive) // builds current velocity
-            {	// measure total user-input delta
-                // we do this here because the MouseMove() can get called many times more often than Update()
-                // particularly on systems with oversampled mice (eg: gaming rigs)
-
+            {
+                //X ======
                 var dX = ViewportTargetX - mLastX;
                 mLastX = ViewportTargetX;
 
@@ -214,7 +206,7 @@ namespace WOWPage.ModernFx
                 mCurrentVelocityX += (velocity - mCurrentVelocityX) * .3;
                 mCurrentDirectionX = dX < 0 ? -1 : 1;
 
-
+                //Y ======
                 var dY = ViewportTargetY - mLastY;
                 mLastY = ViewportTargetY;
 
@@ -226,6 +218,7 @@ namespace WOWPage.ModernFx
             }
             else
             {
+
                 if (mbProcessInertiaX) // decreases current velocity
                 {	// apply simple inertia
 
@@ -276,18 +269,16 @@ namespace WOWPage.ModernFx
             // catch up the viewport to the virtual viewport
             // this allows us to add smoothing really simply and consistently
             var smoothingFactor = 0.12; // [0.05,1] is a sensible range
-            var speed = (ViewportTargetX - ViewportX) * smoothingFactor;
-            ViewportX += speed;
+            var speed = (ViewportTargetX - mViewportX) * smoothingFactor;
+            mViewportX += speed;
 
             if (this.AllowVerticalNavigation)
             {
                 var smoothingFactorY = 0.12; // [0.05,1] is a sensible range
-                var speedY = (ViewportTargetY - ViewportY) * smoothingFactorY;
-                ViewportY += speedY;
+                var speedY = (ViewportTargetY - mViewportY) * smoothingFactorY;
+                mViewportY += speedY;
             }
-            else ViewportY = 0;
-
-
+            else mViewportY = 0;
 
 
         }
