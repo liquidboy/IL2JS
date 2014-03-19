@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 
 namespace WOWPage.ModernFx
 {
-    public class StartScreen
+    public class InfiniteLayout
     {
         Tracing _tracing;
 
@@ -20,10 +20,10 @@ namespace WOWPage.ModernFx
         double mLastMouseX;
         double mLastMouseY;
 
-        public double mCurrentVelocityX;
-        public double mCurrentVelocityY;
-        public double mLastMotionUpdateX;
-        public double mLastMotionUpdateY;
+        double mCurrentVelocityX;
+        double mCurrentVelocityY;
+        double mLastMotionUpdateX;
+        double mLastMotionUpdateY;
 
         double mMousePointerDownX;
         double mMousePointerDownY;
@@ -45,7 +45,7 @@ namespace WOWPage.ModernFx
 
         System.Windows.Threading.DispatcherTimer dt = new System.Windows.Threading.DispatcherTimer();
 
-        public StartScreen()
+        public InfiniteLayout(int maxX, int maxY, int minX, int minY)
         {
             _tracing = new Tracing();
 
@@ -56,6 +56,12 @@ namespace WOWPage.ModernFx
                 mMousePointerDownY = 0;
                 
             };
+
+
+            ViewportMaxX = maxX;
+            ViewportMaxY = maxY;
+            ViewportMinX = minX;
+            ViewportMinY = minY;
 
         }
 
@@ -82,11 +88,6 @@ namespace WOWPage.ModernFx
 
             mLastX = mViewportTargetX;
             mLastY = mViewportTargetY;
-
-
-            //var timeNow = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
-            //mLastMotionUpdateX = timeNow;
-            //mLastMotionUpdateY = timeNow;
 
 
             mPanningActive = true;

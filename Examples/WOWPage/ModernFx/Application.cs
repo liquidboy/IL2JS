@@ -17,7 +17,7 @@ namespace WOWPage.ModernFx
         public int NumberOfScriptsToLoad { get; set; }
         Stats stats;
         Tracing _tracing;
-        StartScreen startScreen;
+        InfiniteLayout startScreen;
 
         public void Loaded()
         {
@@ -41,7 +41,7 @@ namespace WOWPage.ModernFx
                 _tracing = new Tracing();
 
                 //startScreen
-                startScreen = new StartScreen();
+                startScreen = new InfiniteLayout(1000,1000,-1000,-1000);
 
                 //events
                 var mouseDown = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseDown += h, h => LibraryManager.DirectCanvas.Canvas.MouseDown -= h);
