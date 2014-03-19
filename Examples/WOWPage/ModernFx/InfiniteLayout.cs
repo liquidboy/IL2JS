@@ -43,6 +43,12 @@ namespace WOWPage.ModernFx
         public double mViewportX;
         public double mViewportY;
 
+        int mViewportMaxX ;
+        int mViewportMaxY ;
+        int mViewportMinX ;
+        int mViewportMinY ;
+
+
         System.Windows.Threading.DispatcherTimer dt = new System.Windows.Threading.DispatcherTimer();
 
         public InfiniteLayout(int maxX, int maxY, int minX, int minY)
@@ -58,10 +64,10 @@ namespace WOWPage.ModernFx
             };
 
 
-            ViewportMaxX = maxX;
-            ViewportMaxY = maxY;
-            ViewportMinX = minX;
-            ViewportMinY = minY;
+            mViewportMaxX = maxX;
+            mViewportMaxY = maxY;
+            mViewportMinX = minX;
+            mViewportMinY = minY;
 
         }
 
@@ -96,11 +102,6 @@ namespace WOWPage.ModernFx
         public void OnMouseMove(HtmlEvent mouseEvent)
         {
             //_tracing.DrawString("MOUSE MOVE x: " + mouseEvent.PageX + " y: " + mouseEvent.PageY, 20, 140);
-
-            //firefox issue with offset !!! grrrr
-            int offX = 0, offY = 0;
-            offX = mouseEvent.OffsetX;
-            offY = mouseEvent.OffsetY;
 
             if (mPanningActive)
             {
@@ -179,8 +180,6 @@ namespace WOWPage.ModernFx
             
             dt.Start();
 
-            //notifyControlsOfMouseUpEvents(offX, offY);
-
         }
        
         public void OnMouseOut(HtmlEvent mouseEvent)
@@ -193,16 +192,13 @@ namespace WOWPage.ModernFx
         }
 
 
-        int ViewportMaxX = 10000;
-        int ViewportMaxY = 10000;
-        int ViewportMinX = -10000;
-        int ViewportMinY = -10000;
+
         public void Update()
         {
 
             // pre-cap target viewport
-            mViewportTargetX = Math.Min(ViewportMaxX, Math.Max(ViewportMinX, mViewportTargetX));
-            mViewportTargetY = Math.Min(ViewportMaxY, Math.Max(ViewportMinY, mViewportTargetY));
+            mViewportTargetX = Math.Min(mViewportMaxX, Math.Max(mViewportMinX, mViewportTargetX));
+            mViewportTargetY = Math.Min(mViewportMaxY, Math.Max(mViewportMinY, mViewportTargetY));
 
             if (mPanningActive) // builds current velocity
             {	// measure total user-input delta
@@ -238,7 +234,7 @@ namespace WOWPage.ModernFx
                     //Dbg.Print("mViewportTargetX: " + mViewportTargetX);
                     //Dbg.Print("mCurrentVelocityX: " + mCurrentVelocityX);
 
-                    if (mViewportTargetX < ViewportMinX || mViewportTargetX > ViewportMaxX)
+                    if (mViewportTargetX < mViewportMinX || mViewportTargetX > mViewportMaxX)
                     {	// precap and cut inertia short because we hit a wall
                         mCurrentVelocityX = 0;
                         mbProcessInertiaX = false;
@@ -258,7 +254,7 @@ namespace WOWPage.ModernFx
                     mViewportTargetY += mCurrentVelocityY * mCurrentDirectionY;
                     mCurrentVelocityY *= .9;
 
-                    if (mViewportTargetY < ViewportMinY || mViewportTargetY > ViewportMaxY)
+                    if (mViewportTargetY < mViewportMinY || mViewportTargetY > mViewportMaxY)
                     {	// precap and cut inertia short because we hit a wall
                         mCurrentVelocityY = 0;
                         mbProcessInertiaY = false;
