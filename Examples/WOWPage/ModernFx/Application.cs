@@ -88,6 +88,7 @@ namespace WOWPage.ModernFx
 
         private void _draw()
         {
+            //LibraryManager.DirectCanvas.Context.Save();
 
             startScreen.Update();
 
@@ -99,23 +100,25 @@ namespace WOWPage.ModernFx
 
             LibraryManager.DirectCanvas.Context.FillStyle = "#c6c6c6";
             LibraryManager.DirectCanvas.Context.FillRect(
-                ((int)startScreen.mViewportX * -1) + ((Browser.Window.InnerWidth / 2) - 5),
-                ((int)startScreen.mViewportY * -1) + ((Browser.Window.InnerHeight / 2) - 5), 
+                ((int)startScreen.ViewportX * -1) + ((Browser.Window.InnerWidth / 2) - 5),
+                ((int)startScreen.ViewportY * -1) + ((Browser.Window.InnerHeight / 2) - 5), 
                 10, 
                 10);
             
 
 
             var data1 = string.Format("__Final X={0} Y={1}", 
-                startScreen.mViewportTargetX.ToString(),
-                startScreen.mViewportTargetY.ToString());
+                startScreen.ViewportTargetX.ToString(),
+                startScreen.ViewportTargetY.ToString());
 
             var data2 = string.Format("Current X={0} Y={1}",
-                startScreen.mViewportX.ToString(),
-                startScreen.mViewportY.ToString());
+                startScreen.ViewportX.ToString(),
+                startScreen.ViewportY.ToString());
 
             _tracing.DrawString(data1, 100, 100);
             _tracing.DrawString(data2, 100, 80);
+
+            //LibraryManager.DirectCanvas.Context.Restore();
 
         }
 

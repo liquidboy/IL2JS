@@ -44,7 +44,11 @@ namespace Microsoft.LiveLabs.Html
         extern public string TextAlign{ get; set; }
 
 
+        [Import("save")]
+        extern public string Save();
 
+        [Import("restore")]
+        extern public string Restore();
 
     }
 }
