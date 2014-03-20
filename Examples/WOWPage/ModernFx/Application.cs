@@ -17,7 +17,7 @@ namespace WOWPage.ModernFx
         public int NumberOfScriptsToLoad { get; set; }
         Stats stats;
         Tracing _tracing;
-        InfiniteLayout startScreenLayout;
+        StartDashboard startScreen;
 
         public void Loaded()
         {
@@ -41,8 +41,8 @@ namespace WOWPage.ModernFx
                 _tracing = new Tracing();
 
                 //startScreen
-                startScreenLayout = new InfiniteLayout(1000, 1000, -1000, -1000);
-                startScreenLayout.AllowVerticalNavigation = true;
+                startScreen = new StartDashboard(1000, 1000, -1000, -1000);
+                startScreen.AllowVerticalNavigation = true;
 
                 //events
                 var mouseDown = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseDown += h, h => LibraryManager.DirectCanvas.Canvas.MouseDown -= h);
@@ -51,11 +51,11 @@ namespace WOWPage.ModernFx
                 var mouseOut = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseOut += h, h => LibraryManager.DirectCanvas.Canvas.MouseOut -= h);
                 var mouseOver = new HtmlObservable(h => LibraryManager.DirectCanvas.Canvas.MouseOver += h, h => LibraryManager.DirectCanvas.Canvas.MouseOver -= h);
 
-                mouseDown.Subscribe(startScreenLayout.OnMouseDown);
-                mouseUp.Subscribe(startScreenLayout.OnMouseUp);
-                mouseMove.Subscribe(startScreenLayout.OnMouseMove);
-                mouseOut.Subscribe(startScreenLayout.OnMouseOut);
-                mouseOver.Subscribe(startScreenLayout.OnMouseOver);
+                mouseDown.Subscribe(startScreen.OnMouseDown);
+                mouseUp.Subscribe(startScreen.OnMouseUp);
+                mouseMove.Subscribe(startScreen.OnMouseMove);
+                mouseOut.Subscribe(startScreen.OnMouseOut);
+                mouseOver.Subscribe(startScreen.OnMouseOver);
 
                 _loop();
 
@@ -87,7 +87,7 @@ namespace WOWPage.ModernFx
 
         private void _draw()
         {
-            startScreenLayout.Update();
+            startScreen.Update();
 
             //LibraryManager.DirectCanvas.Context.LineWidth = 2;
             //LibraryManager.DirectCanvas.Context.StrokeStyle = "red";
@@ -99,20 +99,20 @@ namespace WOWPage.ModernFx
             //center rectangle for testing ...
             LibraryManager.DirectCanvas.Context.FillStyle = "#c6c6c6";
             LibraryManager.DirectCanvas.Context.FillRect(
-                (int)startScreenLayout.X + ((Browser.Window.InnerWidth / 2) - 5),
-                (int)startScreenLayout.Y + ((Browser.Window.InnerHeight / 2) - 5), 
+                (int)startScreen.X + ((Browser.Window.InnerWidth / 2) - 5),
+                (int)startScreen.Y + ((Browser.Window.InnerHeight / 2) - 5), 
                 10, 
                 10);
             
 
             //tracing output
             var data1 = string.Format("__Final X={0} Y={1}",
-                startScreenLayout.TargetX.ToString(),
-                startScreenLayout.TargetY.ToString());
+                startScreen.TargetX.ToString(),
+                startScreen.TargetY.ToString());
 
             var data2 = string.Format("Current X={0} Y={1}",
-                startScreenLayout.X.ToString(),
-                startScreenLayout.Y.ToString());
+                startScreen.X.ToString(),
+                startScreen.Y.ToString());
 
             _tracing.DrawString(data1, 50, 100);
             _tracing.DrawString(data2, 50, 80);
