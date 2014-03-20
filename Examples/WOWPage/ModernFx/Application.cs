@@ -41,7 +41,7 @@ namespace WOWPage.ModernFx
                 _tracing = new Tracing();
 
                 //startScreen
-                startScreen = new StartDashboard(1000, 1000, -1000, -1000);
+                startScreen = new StartDashboard(2000, 200, 0, 0);
                 startScreen.AllowVerticalNavigation = true;
 
                 //events
@@ -83,26 +83,21 @@ namespace WOWPage.ModernFx
         private void _update()
         {
             if (stats != null) stats.update();
+
+
+            startScreen.Update();
         }
 
         private void _draw()
         {
-            startScreen.Update();
-
-            //LibraryManager.DirectCanvas.Context.LineWidth = 2;
-            //LibraryManager.DirectCanvas.Context.StrokeStyle = "red";
-
             //background of canvas
             LibraryManager.DirectCanvas.Context.FillStyle = "#f3f3f3";
             LibraryManager.DirectCanvas.Context.FillRect(0, 0, Browser.Window.InnerWidth, Browser.Window.InnerHeight);
 
-            //center rectangle for testing ...
-            LibraryManager.DirectCanvas.Context.FillStyle = "#c6c6c6";
-            LibraryManager.DirectCanvas.Context.FillRect(
-                (int)startScreen.X + ((Browser.Window.InnerWidth / 2) - 5),
-                (int)startScreen.Y + ((Browser.Window.InnerHeight / 2) - 5), 
-                10, 
-                10);
+            
+            
+            startScreen.Draw();
+
             
 
             //tracing output
