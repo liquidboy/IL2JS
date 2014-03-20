@@ -1,5 +1,6 @@
 ﻿
 
+using WOWPage.Scripts;
 namespace WOWPage
 {
     public static class LibraryManager
@@ -7,10 +8,11 @@ namespace WOWPage
 
         public static EaselJS CreateJS;
 
-
         public static ThreeJS ThreeJS;
 
         public static DirectCanvas DirectCanvas = new DirectCanvas();
+
+        public static AngularJS AngularJS;
 
     }
 }

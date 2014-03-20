@@ -144,6 +144,7 @@
     <Compile Include="ModernFx\InfiniteLayout.cs" />
     <Compile Include="ModernFx\StartDashboard.cs" />
     <Compile Include="ModernFx\Tracing.cs" />
+    <Compile Include="Scripts\AngularJS.cs" />
     <Compile Include="ThreeJS.cs" />
     <Compile Include="EaselJS.cs" />
     <Compile Include="OpenJS\BrowserUtility.cs" />

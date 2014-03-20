@@ -25,7 +25,12 @@ namespace WOWPage.ModernFx
 
             try
             {
-                
+                Browser.Window.Alert("loaded angular app ... 1");
+
+
+                LibraryManager.AngularJS.RegisterModule("DEMOAPP", new string[] { "ngSanitize", "ngRoute", "ngTouch" });
+
+                Browser.Window.Alert("loaded angular app ... 2");
             }
             catch (Exception ex)
             {
