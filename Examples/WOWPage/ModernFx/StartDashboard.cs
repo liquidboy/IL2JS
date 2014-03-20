@@ -23,7 +23,7 @@ namespace WOWPage.ModernFx
 
             for (var row = 0; row < 5; row++)
             {
-                for (var col = 0; col < 100; col++)
+                for (var col = 0; col < 10; col++)
                 {
                     _tiles.Add(new Tile() { X = 122 * col, Y = 122 * row, Width = 120, Height = 120 });
                 }
@@ -48,6 +48,21 @@ namespace WOWPage.ModernFx
                 LibraryManager.DirectCanvas.Context.StrokeStyle = "#c6c6c6";
                 LibraryManager.DirectCanvas.Context.LineWidth = 1;
                 LibraryManager.DirectCanvas.Context.FillRect((int)this.X + tile.X + 50, (int)this.Y + tile.Y + 80, tile.Width, tile.Height);
+
+
+                LibraryManager.DirectCanvas.Context.FillStyle = "black";
+                LibraryManager.DirectCanvas.Context.FillText(
+                    string.Format("{0},{1}", (int)(this.X + tile.X + 55d), (int)(this.Y + tile.Y + 85d)),
+                    (int)this.X + tile.X + 55, 
+                    (int)this.Y + tile.Y + 85);
+
+
+                LibraryManager.DirectCanvas.Context.StrokeStyle = "red";
+                LibraryManager.DirectCanvas.Context.DrawEllipse(
+                    (int)(this.X + tile.X + 50),
+                    (int)(this.Y + tile.Y + 80),
+                    3,
+                    3);
             }
 
 
