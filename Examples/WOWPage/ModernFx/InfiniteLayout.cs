@@ -36,14 +36,20 @@ namespace WOWPage.ModernFx
 
         double mLastX;
         double mLastY;
-        public double ViewportTargetX;
-        public double ViewportTargetY;
+
+
+        double mViewportTargetX;
+        double mViewportTargetY;
+        public double TargetX { get { return mViewportTargetX * -1; } }
+        public double TargetY { get { return mViewportTargetY * -1; } }
+
 
         double mCurrentDirectionX;
         double mCurrentDirectionY;
+
+
         double mViewportX;
         double mViewportY;
-
         public double X { get { return mViewportX * -1; } }
         public double Y { get { return mViewportY * -1; } }
 
@@ -96,8 +102,8 @@ namespace WOWPage.ModernFx
             mMousePointerDownX = offX;  
             mMousePointerDownY = offY;  
 
-            mLastX = ViewportTargetX;
-            mLastY = ViewportTargetY;
+            mLastX = mViewportTargetX;
+            mLastY = mViewportTargetY;
 
 
             mPanningActive = true;
@@ -131,8 +137,8 @@ namespace WOWPage.ModernFx
                 mLastMotionUpdateY = timeNow;
 
 
-                ViewportTargetX -= deltaX;
-                ViewportTargetY -= deltaY;
+                mViewportTargetX -= deltaX;
+                mViewportTargetY -= deltaY;
 
 
             }
@@ -173,7 +179,7 @@ namespace WOWPage.ModernFx
             mLastX = 0;
             mLastY = 0;
             
-            dt.Start();
+            //dt.Start();
 
         }
        
@@ -192,14 +198,14 @@ namespace WOWPage.ModernFx
         {
 
             // pre-cap target viewport
-            ViewportTargetX = Math.Min(mViewportMaxX, Math.Max(mViewportMinX, ViewportTargetX));
-            ViewportTargetY = Math.Min(mViewportMaxY, Math.Max(mViewportMinY, ViewportTargetY));
+            mViewportTargetX = Math.Min(mViewportMaxX, Math.Max(mViewportMinX, mViewportTargetX));
+            mViewportTargetY = Math.Min(mViewportMaxY, Math.Max(mViewportMinY, mViewportTargetY));
 
             if (mPanningActive) // builds current velocity
             {
                 //X ======
-                var dX = ViewportTargetX - mLastX;
-                mLastX = ViewportTargetX;
+                var dX = mViewportTargetX - mLastX;
+                mLastX = mViewportTargetX;
 
                 // we track this for inertia's sake
                 var velocity = Math.Abs(dX);
@@ -207,8 +213,8 @@ namespace WOWPage.ModernFx
                 mCurrentDirectionX = dX < 0 ? -1 : 1;
 
                 //Y ======
-                var dY = ViewportTargetY - mLastY;
-                mLastY = ViewportTargetY;
+                var dY = mViewportTargetY - mLastY;
+                mLastY = mViewportTargetY;
 
                 // we track this for inertia's sake
                 var velocityY = Math.Abs(dY);
@@ -222,13 +228,13 @@ namespace WOWPage.ModernFx
                 if (mbProcessInertiaX) // decreases current velocity
                 {	// apply simple inertia
 
-                    ViewportTargetX += mCurrentVelocityX * mCurrentDirectionX;
+                    mViewportTargetX += mCurrentVelocityX * mCurrentDirectionX;
                     mCurrentVelocityX *= .9;
 
                     //Dbg.Print("mViewportTargetX: " + mViewportTargetX);
                     //Dbg.Print("mCurrentVelocityX: " + mCurrentVelocityX);
 
-                    if (ViewportTargetX < mViewportMinX || ViewportTargetX > mViewportMaxX)
+                    if (mViewportTargetX < mViewportMinX || mViewportTargetX > mViewportMaxX)
                     {	// precap and cut inertia short because we hit a wall
                         mCurrentVelocityX = 0;
                         mbProcessInertiaX = false;
@@ -245,10 +251,10 @@ namespace WOWPage.ModernFx
                 if (mbProcessInertiaY) // decreases current velocity
                 {	// apply simple inertia
 
-                    ViewportTargetY += mCurrentVelocityY * mCurrentDirectionY;
+                    mViewportTargetY += mCurrentVelocityY * mCurrentDirectionY;
                     mCurrentVelocityY *= .9;
 
-                    if (ViewportTargetY < mViewportMinY || ViewportTargetY > mViewportMaxY)
+                    if (mViewportTargetY < mViewportMinY || mViewportTargetY > mViewportMaxY)
                     {	// precap and cut inertia short because we hit a wall
                         mCurrentVelocityY = 0;
                         mbProcessInertiaY = false;
@@ -269,13 +275,13 @@ namespace WOWPage.ModernFx
             // catch up the viewport to the virtual viewport
             // this allows us to add smoothing really simply and consistently
             var smoothingFactor = 0.12; // [0.05,1] is a sensible range
-            var speed = (ViewportTargetX - mViewportX) * smoothingFactor;
+            var speed = (mViewportTargetX - mViewportX) * smoothingFactor;
             mViewportX += speed;
 
             if (this.AllowVerticalNavigation)
             {
                 var smoothingFactorY = 0.12; // [0.05,1] is a sensible range
-                var speedY = (ViewportTargetY - mViewportY) * smoothingFactorY;
+                var speedY = (mViewportTargetY - mViewportY) * smoothingFactorY;
                 mViewportY += speedY;
             }
             else mViewportY = 0;
