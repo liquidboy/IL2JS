@@ -136,6 +136,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModernFx\WebGLApplication.cs" />
+    <Compile Include="WebGLCanvas.cs" />
     <Compile Include="DirectCanvas.cs" />
     <Compile Include="LibraryManager.cs" />
     <Compile Include="ModernFx\Application.cs" />
@@ -215,6 +217,9 @@
     <Content Include="031\utils.textdraw.js" />
     <Content Include="031\views.pagebase.js" />
     <Content Include="031\views.pagex.js" />
+    <Content Include="Scripts\WebGLCanvas.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="CurveExtras.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

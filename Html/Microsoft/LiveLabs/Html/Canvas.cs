@@ -13,6 +13,8 @@ namespace Microsoft.LiveLabs.Html
         [Import("function(inst) { return inst.getContext('2d'); }", PassInstanceAsArgument = true)]
         extern public Context2D Context2D();
 
+        [Import("function(inst, aa, pr) { return inst.getContext('experimental-webgl', {antialias:aa, preserveDrawingBuffer: pr}); }", PassInstanceAsArgument = true)]
+        extern public ContextWebGL ContextWebGl(bool antialias, bool preserveDrawingBuffer);
     }
 
 
@@ -102,5 +104,16 @@ namespace Microsoft.LiveLabs.Html
 
 
 
+    }
+
+
+    [Import]
+    public class ContextWebGL
+    {
+        [Import("viewportWidth")]
+        extern public int ViewportWidth { get; set; }
+
+        [Import("viewportHeight")]
+        extern public int ViewportHeight { get; set; }
     }
 }

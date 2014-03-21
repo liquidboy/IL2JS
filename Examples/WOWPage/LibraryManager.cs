@@ -12,6 +12,8 @@ namespace WOWPage
 
         public static DirectCanvas DirectCanvas = new DirectCanvas();
 
+        public static WebGLCanvas WebGLCanvas = new WebGLCanvas();
+
         public static AngularJS AngularJS;
 
     }
