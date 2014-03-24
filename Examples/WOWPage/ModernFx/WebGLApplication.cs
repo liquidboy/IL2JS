@@ -25,7 +25,7 @@ namespace WOWPage.ModernFx
 
             try
             {
-                Browser.Window.Alert("loaded webGl app ... 1");
+                //Browser.Window.Alert("loaded webGl app ... 1");
 
                 var div = LibraryManager.WebGLCanvas.CreateRoot();
 

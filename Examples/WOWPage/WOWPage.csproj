@@ -137,7 +137,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModernFx\WebGLApplication.cs" />
-    <Compile Include="WebGLCanvas.cs" />
+    <Compile Include="Scripts\WebGLCanvas.cs" />
     <Compile Include="DirectCanvas.cs" />
     <Compile Include="LibraryManager.cs" />
     <Compile Include="ModernFx\Application.cs" />

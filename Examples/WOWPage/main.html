@@ -6,7 +6,7 @@
         x
 <!--endif-->
 <!--if silverlight-->
-        x
+        y
 <!--endif-->
     </title>
     <meta charset="utf-8">
@@ -51,6 +51,74 @@
       }
     </script>
 <!--endif-->
+
+
+<!--if il2js-->
+
+
+	<!-- vertex shader -->
+    <script id="2d-vertex-shader" type="x-shader/x-vertex">attribute vec2 a_texCoord;
+    varying vec2 v_texCoord;
+    #define MAXPOINTS 8
+    uniform vec2 p1[MAXPOINTS];	// where the drag started
+    uniform vec2 p2[MAXPOINTS];	// where the drag ended
+
+    void main() {
+        v_texCoord = a_texCoord; // Set the texture coord to use
+
+        vec2 position = a_texCoord * 2.0 - 1.0; // convert 0 - 1 range to -1 to +1 range
+    
+        for (int i = 0; i < MAXPOINTS; i++)
+        {
+            float dragdistance = distance(p1[i], p2[i]);
+            float mydistance = distance(p1[i], position);
+    
+            if (mydistance < dragdistance)
+            {
+                vec2 maxdistort = (p2[i] - p1[i]) / 4.0;
+    
+                float normalizeddistance = mydistance / dragdistance;
+                
+                float normalizedimpact = (cos(normalizeddistance*3.14159265359)+1.0)/2.0;
+
+                position += (maxdistort * normalizedimpact);
+            }
+        }
+
+        gl_Position = vec4(position, 0.0, 1.0); 	
+    }
+
+    </script>
+
+
+    <!-- fragment shader -->
+    <script id="2d-fragment-shader" type="x-shader/x-fragment">precision mediump float;
+
+    uniform sampler2D u_image;
+
+    varying vec2 v_texCoord;
+
+    void main() {
+        gl_FragColor = texture2D(u_image, v_texCoord);
+    }
+    </script>
+
+    <!-- fragment shader -->
+    <script id="black" type="x-shader/x-fragment">
+    precision mediump float;
+
+    varying vec2 v_texCoord;
+
+    void main() {
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+    </script>
+
+
+
+<!--endif-->
+
+
   </head>
   <body>
 <!--if silverlight-->
