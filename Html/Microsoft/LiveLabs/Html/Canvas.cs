@@ -17,7 +17,7 @@ namespace Microsoft.LiveLabs.Html
         extern public ContextWebGL ContextWebGl(bool antialias, bool preserveDrawingBuffer);
     }
 
-
+    [Interop(State = InstanceState.JavaScriptOnly)]
     [Import]
     public class Context2D
     {
@@ -106,10 +106,12 @@ namespace Microsoft.LiveLabs.Html
 
     }
 
-
+    [Interop(State = InstanceState.JavaScriptOnly)]
     [Import]
     public class ContextWebGL
     {
+        public ContextWebGL(JSContext ctxt) { }
+
         [Import("viewportWidth")]
         extern public int ViewportWidth { get; set; }
 
@@ -148,7 +150,7 @@ namespace Microsoft.LiveLabs.Html
             inst.compileShader(shader);
 
             if (!inst.getShaderParameter(shader, inst.COMPILE_STATUS)) {
-                //alert(inst.getShaderInfoLog(shader));
+                alert(inst.getShaderInfoLog(shader));
                 return null;
             }
 
@@ -157,29 +159,33 @@ namespace Microsoft.LiveLabs.Html
         extern public Shader GetShader(string id);
 
 
-        [Import(@"function(inst, program, shader) { inst.attachShader(program, shader); }", PassInstanceAsArgument = true)]
+        //[Import(@"function(inst, program, shader) { inst.attachShader(program, shader); }", PassInstanceAsArgument = true)]
+        [Import("attachShader")]
         extern public void AttachShader(WebGLProgram program, Shader shader);
 
-        [Import(@"function(inst, program){ inst.linkProgram(program); }", PassInstanceAsArgument = true)]
+        //[Import(@"function(inst, program){ inst.linkProgram(program); }", PassInstanceAsArgument = true)]
+        [Import("linkProgram")]
         extern public void LinkProgram(WebGLProgram program);
 
-        [Import(@"function(inst, program){ return inst.getProgramParameter(program, inst.LINK_STATUS); }", PassInstanceAsArgument = true)]
-        extern public bool GetLinkStatus(WebGLProgram program);
+        [Import(@"function(inst, program){ return inst.getProgramParameter(program, inst.LINK_STATUS); }")]
+        extern public bool GetLinkStatus(ContextWebGL inst, WebGLProgram program);
 
         [Import(@"function(inst, program){ return inst.getProgramInfoLog(program); }", PassInstanceAsArgument = true)]
         extern public string GetProgramInfoLog(WebGLProgram program);
     }
 
+    [Interop(State = InstanceState.JavaScriptOnly)]
     [Import]
-    public class Shader : HtmlElement
+    public class Shader 
     {
-        public Shader(JSContext ctxt) : base(ctxt) { }
+        public Shader(JSContext ctxt)  { }
     }
 
+    [Interop(State = InstanceState.JavaScriptOnly)]
     [Import]
-    public class WebGLProgram : HtmlElement
+    public class WebGLProgram 
     {
-        public WebGLProgram(JSContext ctxt) : base(ctxt) { }
+        public WebGLProgram(JSContext ctxt) { }
 
 
     }
