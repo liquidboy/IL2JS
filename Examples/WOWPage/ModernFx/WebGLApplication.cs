@@ -16,6 +16,8 @@ namespace WOWPage.ModernFx
     {
         public int NumberOfScriptsToLoad { get; set; }
 
+        Demo01Renderer _render;
+
         public void Loaded()
         {
             if (NumberOfScriptsToLoad <= 0) return;
@@ -23,13 +25,39 @@ namespace WOWPage.ModernFx
             NumberOfScriptsToLoad--;
             if (NumberOfScriptsToLoad > 0) return;
 
+            _render = new Demo01Renderer();
+
             try
             {
                 //Browser.Window.Alert("loaded webGl app ... 1");
 
                 var div = LibraryManager.WebGLCanvas.CreateRoot();
-
                 Browser.Window.Alert("loaded webGl app ... 2");
+                var shader1 = LibraryManager.WebGLCanvas.Context.GetShader("2d-vertex-shader");
+                Browser.Window.Alert("loaded webGl app ... 3");
+                var shader2 = LibraryManager.WebGLCanvas.Context.GetShader("black");
+                Browser.Window.Alert("loaded webGl app ... 4");
+
+                var program = LibraryManager.WebGLCanvas.Context.CreateProgram();
+                Browser.Window.Alert("loaded webGl app ... 5");
+                LibraryManager.WebGLCanvas.Context.AttachShader(program, shader1);
+                Browser.Window.Alert("loaded webGl app ... 6");
+                LibraryManager.WebGLCanvas.Context.AttachShader(program, shader2);
+
+                Browser.Window.Alert("loaded webGl app ... 10");
+
+                var linked = LibraryManager.WebGLCanvas.Context.GetLinkStatus(program);
+                if (!linked)
+                {
+                    Browser.Window.Alert("something went wrong in setting up webgl and linking");
+                    var err = LibraryManager.WebGLCanvas.Context.GetProgramInfoLog(program);
+                    Browser.Window.Alert("programme error : " + err);
+             
+                }
+                else
+                {
+                    Browser.Window.Alert("linking was successful");
+                }
 
             }
             catch (Exception ex)
@@ -48,5 +76,9 @@ namespace WOWPage.ModernFx
 
 
         
+    }
+
+    public class Demo01Renderer
+    {
     }
 }

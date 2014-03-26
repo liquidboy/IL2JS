@@ -115,5 +115,72 @@ namespace Microsoft.LiveLabs.Html
 
         [Import("viewportHeight")]
         extern public int ViewportHeight { get; set; }
+
+
+        [Import("createProgram")]
+        extern public WebGLProgram CreateProgram();
+
+        [Import(@"function(inst, id) { 
+
+            var shaderScript = document.getElementById(id);
+            if (!shaderScript) {
+                return null;
+            }
+
+            var str = """";
+            var k = shaderScript.firstChild;
+            while (k) {
+                if (k.nodeType == 3)
+                    str += k.textContent;
+                k = k.nextSibling;
+            }
+
+            var shader;
+            if (shaderScript.type == ""x-shader/x-fragment"") {
+                shader = inst.createShader(inst.FRAGMENT_SHADER);
+            } else if (shaderScript.type == ""x-shader/x-vertex"") {
+                shader = inst.createShader(inst.VERTEX_SHADER);
+            } else {
+                return null;
+            }
+
+            inst.shaderSource(shader, str);
+            inst.compileShader(shader);
+
+            if (!inst.getShaderParameter(shader, inst.COMPILE_STATUS)) {
+                //alert(inst.getShaderInfoLog(shader));
+                return null;
+            }
+
+            return shader;
+        }", PassInstanceAsArgument = true)]
+        extern public Shader GetShader(string id);
+
+
+        [Import(@"function(inst, program, shader) { inst.attachShader(program, shader); }", PassInstanceAsArgument = true)]
+        extern public void AttachShader(WebGLProgram program, Shader shader);
+
+        [Import(@"function(inst, program){ inst.linkProgram(program); }", PassInstanceAsArgument = true)]
+        extern public void LinkProgram(WebGLProgram program);
+
+        [Import(@"function(inst, program){ return inst.getProgramParameter(program, inst.LINK_STATUS); }", PassInstanceAsArgument = true)]
+        extern public bool GetLinkStatus(WebGLProgram program);
+
+        [Import(@"function(inst, program){ return inst.getProgramInfoLog(program); }", PassInstanceAsArgument = true)]
+        extern public string GetProgramInfoLog(WebGLProgram program);
+    }
+
+    [Import]
+    public class Shader : HtmlElement
+    {
+        public Shader(JSContext ctxt) : base(ctxt) { }
+    }
+
+    [Import]
+    public class WebGLProgram : HtmlElement
+    {
+        public WebGLProgram(JSContext ctxt) : base(ctxt) { }
+
+
     }
 }
